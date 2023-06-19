@@ -4,21 +4,29 @@ namespace DeveloperSample.ClassRefactoring
 {
     public enum SwallowType
     {
-        African, European
+        African, 
+        European
     }
 
     public enum SwallowLoad
     {
-        None, Coconut
+        None, 
+        Coconut
     }
+
 
     public class SwallowFactory
     {
-        public Swallow GetSwallow(SwallowType swallowType) => new Swallow(swallowType);
+        public Swallow GetSwallow(SwallowType swallowType)
+        {
+            return new Swallow(swallowType);
+        }
     }
+
 
     public class Swallow
     {
+
         public SwallowType Type { get; }
         public SwallowLoad Load { get; private set; }
 
@@ -32,24 +40,21 @@ namespace DeveloperSample.ClassRefactoring
             Load = load;
         }
 
+        private static readonly Dictionary<(SwallowType, SwallowLoad), double> AirspeedVelocities = new Dictionary<(SwallowType, SwallowLoad), double>
+        {
+            {(SwallowType.African, SwallowLoad.None), 22},
+            {(SwallowType.African, SwallowLoad.Coconut), 18},
+            {(SwallowType.European, SwallowLoad.None), 20},
+            {(SwallowType.European, SwallowLoad.Coconut), 16}
+        };
+
         public double GetAirspeedVelocity()
         {
-            if (Type == SwallowType.African && Load == SwallowLoad.None)
+            if (AirspeedVelocities.TryGetValue((Type, Load), out var velocity))
             {
-                return 22;
+                return velocity;
             }
-            if (Type == SwallowType.African && Load == SwallowLoad.Coconut)
-            {
-                return 18;
-            }
-            if (Type == SwallowType.European && Load == SwallowLoad.None)
-            {
-                return 20;
-            }
-            if (Type == SwallowType.European && Load == SwallowLoad.Coconut)
-            {
-                return 16;
-            }
+
             throw new InvalidOperationException();
         }
     }
