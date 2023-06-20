@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Frontend",
+    "\\Frontend\\login_app",
+    "\\Frontend\\login_app\\public",
+    "\\Frontend\\login_app\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\downw\\Source\\Repos\\DeveloperSample-Mike-Weatherford",
+  "SelectedNode": "\\Frontend\\login_app\\src\\LoginForm.js",
   "PreviewInSolutionExplorer": false
 }

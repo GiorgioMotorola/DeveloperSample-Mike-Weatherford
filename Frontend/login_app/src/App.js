@@ -5,12 +5,25 @@ import LoginAttemptList from './LoginAttemptList';
 
 const App = () => {
   const [loginAttempts, setLoginAttempts] = useState([]);
+    const [loggedInUser, setLoggedInUser] = useState(null);
+
+    const handleLogin = ({ login, password }) => {
+        const authenticatedUser = { login, password }; 
+        setLoggedInUser(authenticatedUser);
+    };
 
   return (
-    <div className="App">
-      <LoginForm onSubmit={({ login, password }) => console.log({ login, password })} />
-      <LoginAttemptList attempts={loginAttempts} />
-    </div>
+      <div className="App">
+          {loggedInUser ? ( 
+              <div>
+                  <h2>Hello, {loggedInUser.login}!</h2>
+                  <button onClick={() => setLoggedInUser(null)}>Logout</button>
+              </div>
+          ) : (
+              <LoginForm onSubmit={handleLogin} />
+          )}
+          <LoginAttemptList attempts={loginAttempts} />
+      </div>
   );
 };
 
